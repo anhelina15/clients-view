@@ -1,4 +1,4 @@
 export const API_ENDPOINTS = {
   COMPANY: '/company/',
-  FILE: '/file/',
+  IMAGE: '/image/',
 } as const;

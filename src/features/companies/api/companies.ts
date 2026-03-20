@@ -32,7 +32,7 @@ export const getCompanyDetail = async (id: number) => {
 };
 
 export const getCompanyImage = async (fileId: number) => {
-  const response = await apiClient.get<{ imgData: string }>(`${API_ENDPOINTS.FILE}${fileId}/`);
+  const response = await apiClient.get<{ imgData: string }>(`${API_ENDPOINTS.IMAGE}${fileId}/`);
 
   return response.data;
 };
