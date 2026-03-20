@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   { icon: LayoutDashboard, label: 'Nástěnka', to: ROUTES.DASHBOARD },
   { icon: AtSign, label: 'Pošta', to: ROUTES.MAIL },
   { icon: Calendar, label: 'Kalendář', to: ROUTES.CALENDAR },
-  { icon: Users, label: 'Adresář', to: ROUTES.CLIENTS },
+  { icon: Users, label: 'Adresář', to: ROUTES.COMPANIES },
   { icon: Briefcase, label: 'Obchod', to: ROUTES.DEALS },
   { icon: Clock, label: 'Aktivity', to: ROUTES.ACTIVITIES },
   { icon: FileText, label: 'Dokumenty', to: ROUTES.DOCUMENTS },
