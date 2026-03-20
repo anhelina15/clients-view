@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-export function useDebouncedValue<T>(value: T, wait: number): readonly [T, () => void] {
+export function useDebouncedValue<T>(
+  value: T,
+  wait: number,
+): readonly [T, () => void, (newValue: T) => void] {
   const [_value, setValue] = useState(value);
   const timeoutRef = useRef<number | null>(null);
 
@@ -10,6 +13,14 @@ export function useDebouncedValue<T>(value: T, wait: number): readonly [T, () =>
       timeoutRef.current = null;
     }
   }, []);
+
+  const setManualValue = useCallback(
+    (newValue: T) => {
+      cancel();
+      setValue(newValue);
+    },
+    [cancel],
+  );
 
   useEffect(() => {
     cancel();
@@ -21,5 +32,5 @@ export function useDebouncedValue<T>(value: T, wait: number): readonly [T, () =>
     return cancel;
   }, [value, wait, cancel]);
 
-  return [_value, cancel] as const;
+  return [_value, cancel, setManualValue] as const;
 }

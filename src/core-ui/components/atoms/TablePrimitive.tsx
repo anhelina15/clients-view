@@ -14,17 +14,21 @@ const tableRow = tv({
   base: 'cursor-pointer border-b border-gray-100 transition-colors',
   variants: {
     variant: {
-      default: 'hover:bg-[#E4F7FF] data-[state=selected]:bg-[#e0fcd4]',
+      default: 'hover:bg-[#E4F7FF]',
       header: 'hover:bg-transparent border-none pointer-events-none',
     },
     striped: {
       true: 'even:bg-slate-50/50 bg-white',
       false: '',
     },
+    selected: {
+      true: 'bg-[#e0fcd4]',
+    },
   },
   defaultVariants: {
     variant: 'default',
     striped: false,
+    selected: false,
   },
 });
 
@@ -69,12 +73,13 @@ const TableFooter = ({ className, ...props }: ComponentProps<'tfoot'>) => (
 interface TableRowProps extends ComponentProps<'tr'> {
   variant?: 'default' | 'header';
   striped?: boolean;
+  selected?: boolean;
 }
 
-const TableRow = ({ className, variant, striped, ...props }: TableRowProps) => (
+const TableRow = ({ className, variant, striped, selected, ...props }: TableRowProps) => (
   <tr
     data-slot="table-row"
-    className={tableRow({ variant, striped, class: className })}
+    className={tableRow({ variant, striped, selected, class: className })}
     {...props}
   />
 );
