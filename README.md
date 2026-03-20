@@ -76,8 +76,21 @@ npm run build
 
 ## 📸 Demo
 
-![Dashboard Overview](https://via.placeholder.com/800x450?text=Dashboard+Overview)
-_Company table list with fulltext search capabilities._
+**Welcome Screen**
+<br> <br>
+<img width="500" height="400" alt="Welcome screen" src="https://github.com/user-attachments/assets/3ba23db4-a56f-4ae4-80a2-84eb11903875" />
 
-![Client Details](https://via.placeholder.com/800x450?text=Client+Details)
-_Detailed view of client information, including contact details and status._
+<br>
+
+**Setup Credentials** — Сonfigure your API access to integrate with Raynet CRM.
+<br> <br>
+<img width="541" height="448" alt="Setup credentials" src="https://github.com/user-attachments/assets/b7f3f4d0-9748-467b-9871-96d36f61a2c8" />
+<br> <br>
+**Main Dashboard** — A comprehensive view of the company table alongside a detailed information card.
+<br> <br>
+<img width="1629" height="827" alt="Company table and details card" src="https://github.com/user-attachments/assets/5ba1b783-0406-48b5-8d78-f92de8b36abe" />
+<br> <br>
+
+**Fulltext Search** — Find specific companies data across all fields.
+<br> <br>
+<img width="1063" height="470" alt="Fulltext search" src="https://github.com/user-attachments/assets/3d9f9607-e533-4647-bbde-2d779e41ffb9" />
