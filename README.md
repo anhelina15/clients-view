@@ -2,79 +2,67 @@
 
 A modern React application for viewing and managing client data, integrated with Raynet CRM.
 
-## 📸 Demo
-
-![Dashboard Placeholder](https://via.placeholder.com/800x450?text=Dashboard+View)
-![Client Details Placeholder](https://via.placeholder.com/800x450?text=Client+Details+View)
-
 ## 🚀 Technologies
 
 ### Core Stack
 
-- **React 19** - UI library with the latest features.
-- **Vite** - Extremely fast build tool and dev server.
-- **TypeScript** - For type safety and better developer experience.
-- **TanStack React Query** - Powerful asynchronous state management.
-- **Axios** - Promise-based HTTP client for API requests.
+- [**React 19**](https://react.dev/) — UI library for building interfaces.
+- [**Vite 7**](https://vite.dev/) — Extremely fast build tool and dev server.
+- [**TypeScript**](https://www.typescriptlang.org/) — Type safety for reliable code.
+- [**TanStack React Query**](https://tanstack.com/query/latest) — Asynchronous state management and caching.
+- [**Axios**](https://axios-http.com/) — HTTP client for API requests.
+- [**React Router 7**](https://reactrouter.com/) — Powerful routing for single-page applications.
+
+### Forms & Validation
+
+- [**React Final Form**](https://final-form.org/react) — Subscription-based form state management.
+- [**Yup**](https://www.npmjs.com/package/yup) — Schema-based value parsing and validation.
 
 ### UI & Styling
 
-- **Tailwind CSS 4** - Modern utility-first CSS framework.
-- **Tailwind Variants** - Type-safe component variant management.
-- **Radix UI** - Unstyled, accessible UI primitives (e.g., Select).
-- **Lucide React** - Beautiful and consistent icon library.
+- [**Tailwind CSS 4**](https://tailwindcss.com/) — Modern utility-first CSS framework.
+- [**Radix UI**](https://www.radix-ui.com/) — Accessible, unstyled UI primitives (Select, Dialog).
+- [**Lucide React**](https://lucide.dev/) — Beautiful and consistent icon set.
+- [**Tailwind Variants**](https://www.tailwind-variants.org/) — Type-safe component variant management.
 
-### Development Tools
+### Automation & Deployment
 
-- **ESLint** & **Prettier** - For code quality and consistent formatting.
-- **Husky** & **lint-staged** - Automated pre-commit quality checks.
+- **GitHub Actions** — Automatic deployment to GitHub Pages on every push to `main`.
+- **ESLint** & **Prettier** — Code quality and consistent styling.
+- **Husky** & **lint-staged** — Automatic pre-commit checks.
 
 ## 🏗️ Architecture
 
-The project follows a **feature-based architecture** combined with a robust component system:
+The project uses a **feature-based** architecture for better scalability:
 
 ```text
 src/
 ├── core-ui/            # Reusable design system components
-├── features/           # Feature-based modules (e.g., companies, routing)
+├── features/           # Feature-based modules (companies, routing, clients)
 │   ├── companies/     # Company management logic and components
-│   └── routing/       # Application routing configuration
+│   └── routing/       # Routing configuration
 ├── shared/             # Shared hooks, providers, and utilities
 ├── types/              # Global TypeScript types
-└── main.tsx            # Application entry point
+└── main.tsx            # Entry point
 ```
 
 ## 🛠️ Installation and Setup
 
-### Prerequisites
-
-- **Node.js** (LTS version recommended)
-- **npm** (package manager)
-
-### 1. Clone and Install
+### 1. Setup
 
 ```bash
 # Install dependencies
 npm install
-```
 
-### 2. Environment Configuration
-
-Create a `.env` file in the root directory and add your Raynet CRM credentials:
-
-```env
-VITE_RAYNET_API_KEY=your_api_key_here
-VITE_RAYNET_USER=your_email@example.com
-VITE_RAYNET_INSTANCE=your_instance_id
-```
-
-### 3. Start Development Server
-
-```bash
+# Start development server
 npm run dev
 ```
 
-### 4. Build for Production
+### 2. Build and Deploy
+
+The project is configured for **automatic deployment** via GitHub Actions. Simply run `git push origin main`.
+
+For manual builds:
 
 ```bash
 npm run build
@@ -82,19 +70,14 @@ npm run build
 
 ## ✨ Key Features
 
-- **Company List** - Dynamic table view of companies with filtering and search.
-- **Client Details** - Comprehensive information view for selected clients.
-- **Raynet CRM Integration** - Seamless data synchronization with Raynet API.
-- **Modern UI** - Responsive and accessible interface with a premium feel.
+- **Company List** — Dynamic table with filtering and search.
+- **Client Details** — Detailed information view for selected clients.
+- **Modern UX** — Fast interface with smooth transitions and high accessibility.
 
-## 🧹 Linting and Formatting
+## 📸 Demo
 
-```bash
-# Check and fix code quality issues
-npm run lint
+![Dashboard Overview](https://via.placeholder.com/800x450?text=Dashboard+Overview)
+_Company table list with fulltext search capabilities._
 
-# Format code with Prettier
-# (Note: Requires a format script in package.json, or use npx prettier --write .)
-```
-
----
+![Client Details](https://via.placeholder.com/800x450?text=Client+Details)
+_Detailed view of client information, including contact details and status._
