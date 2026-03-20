@@ -1,3 +1,5 @@
+import DOMPurify from 'dompurify';
+
 import { Badge } from '@/core-ui/components/atoms/Badge';
 import Loader from '@/core-ui/components/atoms/Loader';
 import { STATUS_CONFIG, ROLE_CONFIG } from '@/features/companies/consts/companyStatus';
@@ -39,6 +41,8 @@ const CompanyDetailCard = ({ companyId }: CompanyDetailCardProps) => {
     ? getColor(headerLabel)
     : { bgColor: '', textColor: '' };
 
+  const sanitizedNotice = notice ? DOMPurify.sanitize(notice) : '';
+
   return (
     <div className="flex flex-col h-full overflow-hidden relative gap-6">
       <div className="flex items-center justify-between">
@@ -61,7 +65,15 @@ const CompanyDetailCard = ({ companyId }: CompanyDetailCardProps) => {
           logoId={logo?.id}
         />
 
-        <p className="text-slate-600 text-sm">Poznámka: {notice}</p>
+        {sanitizedNotice && (
+          <div className="flex flex-col gap-1">
+            <span className="text-slate-400 text-sm tracking-wider">Poznámka:</span>
+            <div
+              className="text-slate-600 text-sm [&>p]:mb-1 last:[&>p]:mb-0 [&>i]:italic [&>b]:font-bold"
+              dangerouslySetInnerHTML={{ __html: sanitizedNotice }}
+            />
+          </div>
+        )}
 
         <div className="flex gap-2 items-center">
           <span className="text-slate-400 text-sm tracking-wider">Vlastník:</span>
