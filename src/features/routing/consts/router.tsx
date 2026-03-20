@@ -1,11 +1,11 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 
 import { ROUTES } from '@/features/routing/consts/routesPath';
 import AppLayout from '@/features/routing/components/AppLayout';
 import RouterErrorWrapper from '@/features/routing/components/RouterErrorWrapper';
 import CompaniesContainer from '@/features/companies/CompaniesContainer';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: ROUTES.HOME,
     element: <AppLayout />,
