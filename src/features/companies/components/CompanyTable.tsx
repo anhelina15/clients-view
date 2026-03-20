@@ -33,7 +33,7 @@ const CompanyTable = ({
 
   if (isError) {
     return (
-      <div className="flex items-center justify-center h-full text-red-500 p-8 text-center">
+      <div className="max-w-2xl mx-auto flex items-center justify-center h-full text-red-500 p-8 text-center">
         Chyba při načítání dat: {error?.message || 'Neznámá chyba'}
       </div>
     );

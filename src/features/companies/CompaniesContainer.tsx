@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { Settings, LogOut } from 'lucide-react';
 
 import { CompanyTableBlock } from '@/features/companies/components/CompanyTableBlock';
 import CompanyDetailCard from '@/features/companies/components/CompanyDetailCard';
@@ -8,10 +9,14 @@ import { useDebouncedValue } from '@/core-ui/hooks/useDebouncedValue';
 import { useSearchId } from '@/shared/hooks/useSearchId';
 import { usePagination } from '@/core-ui/hooks/usePagination';
 import { useCompanies } from '@/features/companies/hooks/useCompanies';
+import { useDisclosure } from '@/core-ui/hooks/useDisclosure';
+import Button from '@/core-ui/components/atoms/Button';
+import ApiAccessSetupModal from '@/features/auth/components/ApiAccessSetupModal';
 
 const SEARCH_COMPANY_DEBOUNCE_DELAY = 800;
 
 const CompaniesContainer = () => {
+  const [isAuthModalOpen, { open: openAuthModal, close: closeAuthModal }] = useDisclosure(false);
   const [selectedId, setSelectedId] = useSearchId('companyId');
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchValue, cancelDebounce, setDebouncedSearchTerm] = useDebouncedValue(
@@ -55,9 +60,40 @@ const CompaniesContainer = () => {
     }
   }, [data, setTotalItems, setTotalPages, perPage]);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = window.location.origin + window.location.pathname;
+  };
+
   return (
     <div className="flex flex-col h-full bg-white overflow-hidden font-sans p-6 gap-6">
-      <h1 className="text-4xl font-light text-slate-700 tracking-tight">Klienti</h1>
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-4xl font-light text-slate-700 tracking-tight">Klienti</h1>
+        <div className="flex gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            isFullWidth={false}
+            className="text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 font-semibold"
+            onClick={openAuthModal}
+          >
+            <Settings className="size-4 mr-2" />
+            Nastavení API
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            isFullWidth={false}
+            className="text-slate-500 hover:text-red-600 hover:bg-red-50"
+            onClick={handleLogout}
+          >
+            <LogOut className="size-4 mr-2" />
+            Odhlásit se
+          </Button>
+        </div>
+      </div>
+
+      <ApiAccessSetupModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
 
       <div className="max-w-xs">
         <SearchInput

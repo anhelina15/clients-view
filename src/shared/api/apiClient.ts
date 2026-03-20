@@ -1,27 +1,38 @@
-import axios from 'axios';
+import axios, { type AxiosInstance } from 'axios';
+
+import { getFromStorage } from '@/shared/utils/storage';
 
 const RAYNET_API_BASE_URL = 'https://app.raynet.cz/api/v2';
 
-const RAYNET_USER = import.meta.env.VITE_RAYNET_USER;
-const RAYNET_API_KEY = import.meta.env.VITE_RAYNET_API_KEY;
-const RAYNET_INSTANCE = import.meta.env.VITE_RAYNET_INSTANCE;
+export const createApiClient = (baseURL: string): AxiosInstance => {
+  const client = axios.create({
+    baseURL,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
 
-const apiClient = axios.create({
-  baseURL: RAYNET_API_BASE_URL,
-  headers: {
-    'X-Instance-Name': RAYNET_INSTANCE,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
+  client.interceptors.request.use((config) => {
+    const user = getFromStorage('user');
+    const apiKey = getFromStorage('api_key');
+    const instance = getFromStorage('instance') || '';
 
-apiClient.interceptors.request.use((config) => {
-  if (RAYNET_USER && RAYNET_API_KEY) {
-    const auth = btoa(`${RAYNET_USER}:${RAYNET_API_KEY}`);
-    config.headers.Authorization = `Basic ${auth}`;
-  }
+    if (instance) {
+      config.headers['X-Instance-Name'] = instance;
+    }
 
-  return config;
-});
+    if (user && apiKey) {
+      const auth = btoa(`${user}:${apiKey}`);
+      config.headers.Authorization = `Basic ${auth}`;
+    }
+
+    return config;
+  });
+
+  return client;
+};
+
+const apiClient = createApiClient(RAYNET_API_BASE_URL);
 
 export default apiClient;
