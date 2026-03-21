@@ -4,7 +4,6 @@ import { Badge } from '@/core-ui/components/atoms/Badge';
 import Loader from '@/core-ui/components/atoms/Loader';
 import { STATUS_CONFIG, ROLE_CONFIG } from '@/features/companies/consts/companyStatus';
 import { useCompanyDetail } from '@/features/companies/hooks/useCompanies';
-import { type CompanyDetail } from '@/types/company';
 import { getColor } from '@/shared/utils/colorUtils';
 import { CompanyContactInfo } from '@/features/companies/components/CompanyContactInfo';
 
@@ -14,9 +13,6 @@ interface CompanyDetailCardProps {
 
 const CompanyDetailCard = ({ companyId }: CompanyDetailCardProps) => {
   const { data: companyDetail, isLoading: isDetailLoading, isError } = useCompanyDetail(companyId);
-
-  const { name, regNumber, primaryAddress, logo, notice, owner, category, tags, state, role } =
-    (companyDetail as CompanyDetail) || {};
 
   if (isDetailLoading) {
     return <Loader size="md" label="Načítání detailu..." />;
@@ -29,6 +25,9 @@ const CompanyDetailCard = ({ companyId }: CompanyDetailCardProps) => {
       </div>
     );
   }
+
+  const { name, regNumber, primaryAddress, logo, notice, owner, category, tags, state, role } =
+    companyDetail;
 
   const status = state ? STATUS_CONFIG[state] : undefined;
   const roleConfig = role ? ROLE_CONFIG[role] : undefined;

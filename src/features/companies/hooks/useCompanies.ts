@@ -8,10 +8,12 @@ import {
   type GetCompaniesParams,
 } from '@/features/companies/api/companies';
 
-export const useCompanies = (params?: GetCompaniesParams) => {
+export const useCompanies = (params: GetCompaniesParams, isSearchQueryValid: boolean) => {
   return useQuery({
     queryKey: [QUERY_KEYS.COMPANIES, params],
     queryFn: () => getCompanies(params),
+    enabled: isSearchQueryValid,
+    placeholderData: (previousData) => previousData,
   });
 };
 

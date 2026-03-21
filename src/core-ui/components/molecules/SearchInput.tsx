@@ -49,13 +49,11 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
     });
 
     const handleClear = () => {
-      if (onClear) {
-        onClear();
-
-        return;
-      }
-
-      onChange?.({ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>);
+      onChange?.({
+        target: { value: '' },
+        currentTarget: { value: '' },
+      } as React.ChangeEvent<HTMLInputElement>);
+      onClear?.();
     };
 
     return (

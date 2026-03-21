@@ -1,19 +1,19 @@
-import apiClient from '@/shared/api/apiClient';
+import { apiClient } from '@/shared/api/apiClient';
 import type { Company, CompanyDetail, ApiResponse, PaginatedApiResponse } from '@/types/company';
 import { API_ENDPOINTS } from '@/features/companies/consts/api';
 
 export interface GetCompaniesParams {
-  fulltext?: string;
-  offset?: number;
-  limit?: number;
+  fulltext: string;
+  offset: number;
+  limit: number;
 }
 
-export const getCompanies = async (params?: GetCompaniesParams) => {
+export const getCompanies = async (params: GetCompaniesParams) => {
   const response = await apiClient.get<PaginatedApiResponse<Company>>(API_ENDPOINTS.COMPANY, {
     params: {
-      fulltext: params?.fulltext,
-      offset: params?.offset,
-      limit: params?.limit,
+      fulltext: params.fulltext,
+      offset: params.offset,
+      limit: params.limit,
     },
   });
 
