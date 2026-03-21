@@ -5,7 +5,7 @@ import Button from '@/core-ui/components/atoms/Button';
 import TextField from '@/core-ui/components/molecules/TextField';
 import { createValidator } from '@/shared/utils/createValidator';
 import FORM_FIELDS from '@/shared/consts/formFields';
-import { setToStorage } from '@/shared/utils/storage';
+import { useAuth } from '@/features/auth/contexts/AuthContext';
 
 const apiKeySchema = yup.object({
   [FORM_FIELDS.API_KEY]: yup
@@ -33,13 +33,11 @@ interface ApiAccessSetupFormProps {
 }
 
 export const ApiAccessSetupForm = ({ onClose }: ApiAccessSetupFormProps) => {
-  const handleSubmit = (values: ApiFormValues) => {
-    setToStorage(FORM_FIELDS.API_KEY, values[FORM_FIELDS.API_KEY]);
-    setToStorage(FORM_FIELDS.USER, values[FORM_FIELDS.USER]);
-    setToStorage(FORM_FIELDS.INSTANCE, values[FORM_FIELDS.INSTANCE]);
-    onClose();
+  const { login } = useAuth();
 
-    window.location.reload();
+  const handleSubmit = (values: ApiFormValues) => {
+    login(values[FORM_FIELDS.API_KEY], values[FORM_FIELDS.USER], values[FORM_FIELDS.INSTANCE]);
+    onClose();
   };
 
   return (

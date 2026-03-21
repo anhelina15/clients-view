@@ -1,11 +1,30 @@
 import axios, { type AxiosInstance } from 'axios';
 
 import { getFromStorage } from '@/shared/utils/storage';
+import { AUTH_DATA_STORAGE_KEY } from '@/shared/consts/storage';
 
 const RAYNET_API_BASE_URL = 'https://app.raynet.cz/api/v2';
 
-export const createApiClient = (baseURL: string): AxiosInstance => {
-  const client = axios.create({
+export interface AuthDataPayload {
+  user: string;
+  apiKey: string;
+  instance: string;
+}
+
+const createApiClient = (
+  baseURL: string,
+): {
+  apiClient: AxiosInstance;
+  updateApiClientAuthData: (data: AuthDataPayload | null) => void;
+} => {
+  let currentAuthData: AuthDataPayload | null =
+    getFromStorage<AuthDataPayload>(AUTH_DATA_STORAGE_KEY);
+
+  const updateApiClientAuthData = (data: AuthDataPayload | null) => {
+    currentAuthData = data;
+  };
+
+  const apiClient = axios.create({
     baseURL,
     headers: {
       Accept: 'application/json',
@@ -13,26 +32,24 @@ export const createApiClient = (baseURL: string): AxiosInstance => {
     },
   });
 
-  client.interceptors.request.use((config) => {
-    const user = getFromStorage('user');
-    const apiKey = getFromStorage('api_key');
-    const instance = getFromStorage('instance') || '';
+  apiClient.interceptors.request.use((config) => {
+    if (currentAuthData) {
+      const { user, apiKey, instance } = currentAuthData;
 
-    if (instance) {
-      config.headers['X-Instance-Name'] = instance;
-    }
+      if (instance) {
+        config.headers['X-Instance-Name'] = instance;
+      }
 
-    if (user && apiKey) {
-      const auth = btoa(`${user}:${apiKey}`);
-      config.headers.Authorization = `Basic ${auth}`;
+      if (user && apiKey) {
+        const auth = btoa(`${user}:${apiKey}`);
+        config.headers.Authorization = `Basic ${auth}`;
+      }
     }
 
     return config;
   });
 
-  return client;
+  return { apiClient, updateApiClientAuthData };
 };
 
-const apiClient = createApiClient(RAYNET_API_BASE_URL);
-
-export default apiClient;
+export const { apiClient, updateApiClientAuthData } = createApiClient(RAYNET_API_BASE_URL);
